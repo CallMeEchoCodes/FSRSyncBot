@@ -23,6 +23,8 @@ import java.io.StringWriter;
 public final class FSRSBot {
 	private static final Logger LOGGER = LogManager.getLogger(FSRSBot.class);
 	private static Server syncServer;
+	private static Server server;
+
 	private static Role syncRole;
 	private static DiscordApi api;
 
@@ -50,6 +52,8 @@ public final class FSRSBot {
 		}
 
 		syncServer = api.getServerById(FSRSConfig.INSTANCE.syncGuildId()).orElseThrow();
+		server = api.getServerById(FSRSConfig.INSTANCE.guildId()).orElseThrow();
+
 		syncRole = syncServer.getRoleById(FSRSConfig.INSTANCE.syncGuildRoleId()).orElseThrow();
 
 		LOGGER.info("Logged in as {}", api.getYourself().getDiscriminatedName());
@@ -91,6 +95,10 @@ public final class FSRSBot {
 
 	public static Server getSyncServer() {
 		return syncServer;
+	}
+
+	public static Server getServer() {
+		return server;
 	}
 
 	public static Role getSyncRole() {
